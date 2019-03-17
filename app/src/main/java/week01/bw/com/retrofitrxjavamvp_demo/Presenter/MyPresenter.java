@@ -1,6 +1,5 @@
 package week01.bw.com.retrofitrxjavamvp_demo.Presenter;
 
-import java.util.List;
 
 import week01.bw.com.retrofitrxjavamvp_demo.Bean.MenuBean;
 import week01.bw.com.retrofitrxjavamvp_demo.Model.ModelInterface;
@@ -17,10 +16,6 @@ public class MyPresenter implements ModelInterface {
 
     public void handlerdata(){
         modleData.getData();
-    }
-
-    public void onItemClick(int possition){
-        mvpView.showMessage(possition+"");
     }
 
     @Override

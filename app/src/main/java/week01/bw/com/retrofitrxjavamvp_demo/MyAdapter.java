@@ -9,18 +9,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.BlurTransformation;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import week01.bw.com.retrofitrxjavamvp_demo.Bean.MenuBean;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
-    List<MenuBean> list = new ArrayList<>();
+    List<MenuBean.DataBean> list = new ArrayList<>();
     Context context;
 
-    public void refresh(List<MenuBean> data){
+    public void refresh(Context context,List<MenuBean.DataBean> data){
+        this.context = context;
         list.clear();
         this.list.addAll(data);
         notifyDataSetChanged();
@@ -35,9 +39,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        myViewHolder.textView.setText(list.get(i).getData().get(i).getTitle());
-        Picasso.with(context).load(list.get(i).getData().get(i).getPic()).into(myViewHolder.imageView);
-
+        myViewHolder.textView.setText(list.get(i).getTitle());
+        Glide.with(context)
+                .load(list.get(i).getPic())
+                .bitmapTransform(new CropCircleTransformation(myViewHolder.itemView.getContext()))
+                .crossFade(1000)
+                .into(myViewHolder.imageView);
     }
 
     @Override
